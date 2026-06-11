@@ -1,7 +1,11 @@
-import React from "react";
+import React , {useState} from "react";
 import './faq.css';
 const Faq = () => {
+const [openId, setOpenId] = useState(null);
 
+const handleToggle = (id) => {
+  setOpenId((prev) => (prev === id ? null : id));
+};
 	const faqs = [
     {
       id: 1,
@@ -33,10 +37,12 @@ const Faq = () => {
                   <div>
                     <h3>{item.question}</h3>
                   </div>
-                  <div>+</div>
+                  <div className="toggle" onClick={() => handleToggle(item.id)}>
+                    {openId === item.id ? "-" : "+"}
+                  </div>
                 </div>
 
-                <h4>{item.answer}</h4>
+                {openId === item.id && <h4>{item.answer}</h4>}
               </div>
             );
 			
